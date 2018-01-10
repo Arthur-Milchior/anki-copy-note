@@ -47,7 +47,7 @@ def copyCards(nids,review):
         # Copy tags and fields (all model fields) from original note
         note_copy.tags = note.tags
         note_copy.fields = note.fields
-
+        note_copy.id = timestampID(note.col.db, "notes", note.id)
         # Refresh note and add to database
         note_copy.flush()
         mw.col.addNote(note_copy)
@@ -91,7 +91,7 @@ def setupMenu(browser):
     browser.form.menuEdit.addSeparator()
     browser.form.menuEdit.addAction(a)
     a = QAction("Full Notes Copy", browser)
-    a.setShortcut(QKeySequence("Ctrl+Shift+C")) # Shortcut for convenience. Added by Didi
+    a.setShortcut(QKeySequence("Ctrl+Alt+C")) # Shortcut for convenience. Added by Didi
     browser.connect(a, SIGNAL("triggered()"), lambda e=browser: onCopyCards(e,review=True))
     browser.form.menuEdit.addAction(a)
 
@@ -99,3 +99,21 @@ def onCopyCards(browser, review=False):
     copyCards(browser.selectedNotes(),review)
 
 addHook("browser.setupMenus", setupMenu)
+
+# def timestampID(db, table, t=None):
+#     "Return a non-conflicting timestamp for table."
+#     # be careful not to create multiple objects without flushing them, or they
+#     # may share an ID.
+#     t =  t or intTime(1000) 
+#     while db.scalar("select id from %s where id = ?" % table, t):
+#         t += 1
+#     return t
+
+def timestampID(db, table, t=None):
+    "Return a non-conflicting timestamp for table."
+    # be careful not to create multiple objects without flushing them, or they
+    # may share an ID.
+    t = t or intTime(1000)
+    while db.scalar("select id from %s where id = ?" % table, t):
+        t += 1
+    return t
