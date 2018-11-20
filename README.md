@@ -1,4 +1,4 @@
-#Copy notes
+# Copy notes
 
 The copy can have only new cards. Or they can have exactly the same
 intervals, ease, etc... than the original card.
