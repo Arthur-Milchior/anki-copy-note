@@ -26,4 +26,4 @@ Based on    |Kealan Hobelmann's addon 396494452 (for anki 2.0)
 Based on    |Anki code by Damien Elmes <anki@ichi2.net>
 License     |GNU AGPL, version 3 or later; http|//www.gnu.org/licenses/agpl.html
 Source in   |https://github.com/Arthur-Milchior/anki-copy-note
-Addon number| 1566928056  https://ankiweb.net/shared/info/1566928056
+Addon number| [1566928056](https://ankiweb.net/shared/info/1566928056)
