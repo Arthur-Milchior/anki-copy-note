@@ -1,22 +1,29 @@
-# -*- coding: utf-8 -*-
-# Copyright: Arthur Milchior arthur@milchior.fr
-# License: GNU GPL, version 3 or later; http://www.gnu.org/copyleft/gpl.html
-# Select any number of cards in the card browser and create exact copies of each card in the deck
-# Feel free to contribute to this code on https://github.com/Arthur-Milchior/anki-copy-note
-# Anki's add-on number: 1566928056
+#Copy notes
 
-#This add-ons is heavily based on Kealan Hobelmann's addon 396494452
+The copy can have only new cards. Or they can have exactly the same
+intervals, ease, etc... than the original card.
 
+To copy a note:
+1. Open the card browser
+2. Select the desired notes (at least one card by note)
+3. Go to "Edit > Copy and set to new" (Ctrl+C) or "Edit > Copy notes,
+   keep interval" (Ctrl+Shift+C)
 
-1) Open the card browser
-2) Select the desired notes (at least one card by note)
-3) Go to "Edit > Copy Notes in place" or "Edit > Full note copy"
+The copy preserve fields, tags, decks. 
 
-Both option consider the note you did select, and create a new note with the same content. (Fields and tags)
-Both option add the card of the copied note to the deck in which the original card is (this is the main difference with addon 396494452)
+## Warning
+There is a potential caveat, which should not occur often nor have
+real consequences. You should note that empty cards are not copied. If
+you don't know what it means, you probably doesn't need to worry about
+this. 
 
-"Copy notes in place" create  cards which are new. Empty card's are not copied.
-"Full note copy" also copy the reviews paramater (number of reviews,  of leeches, easiness, due date...). Empty card's are copied. 
+## Links, licence and credits
 
-Recall that an «empty cards» is a card that should be deleted by
-«check empty card».
+Key         |Value
+------------|-------------------------------------------------------------------
+Copyright   |Arthur Milchior <arthur@milchior.fr>
+Based on    |Kealan Hobelmann's addon 396494452 (for anki 2.0)
+Based on    |Anki code by Damien Elmes <anki@ichi2.net>
+License     |GNU AGPL, version 3 or later; http|//www.gnu.org/licenses/agpl.html
+Source in   |https://github.com/Arthur-Milchior/anki-copy-note
+Addon number| 1566928056  https://ankiweb.net/shared/info/1566928056
