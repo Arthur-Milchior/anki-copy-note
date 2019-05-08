@@ -1,4 +1,4 @@
-#Copy notes
+# Copy notes
 
 The copy can have only new cards. Or they can have exactly the same
 intervals, ease, etc... than the original card.
@@ -16,6 +16,9 @@ There is a potential caveat, which should not occur often nor have
 real consequences. You should note that empty cards are not copied. If
 you don't know what it means, you probably doesn't need to worry about
 this. 
+
+## Configuration
+"Preserve creation time": as indicated by the name, if it's true, the card and note's creation time are preserved. Otherwise, it is set to the time of the copy.
 
 ## Links, licence and credits
 
