@@ -11,6 +11,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from anki.hooks import addHook
 from aqt import mw
+from .config import getConfig
 from aqt.utils import tooltip, showWarning
 from anki.utils import timestampID, intTime
 import anki.notes
@@ -20,13 +21,13 @@ import anki.notes
 def copyCards(nids,review):
     mw.checkpoint("Copy Notes")
     mw.progress.start()
-    
-    
+
+
     # Copy notes
     for nid in nids:
         note = mw.col.getNote(nid)
         model = note._model
-        
+
         # Create new note
         note_copy = anki.notes.Note(mw.col,model=model)
         # Copy tags and fields (all model fields) from original note
@@ -37,7 +38,7 @@ def copyCards(nids,review):
         note_copy.flush()
         mw.col.addNote(note_copy)
         nid_copy = note_copy.id
-        
+
         cards_copy= note_copy.cards()
         cards= note.cards()
         ord_to_card = {card.ord:card for card in cards}
@@ -66,18 +67,22 @@ def copyCards(nids,review):
     mw.progress.finish()
     mw.col.reset()
     mw.reset()
-        
+
     tooltip(_("""Cards copied."""))
-    
-    
+
+
 def setupMenu(browser):
     a = QAction("Note Copy", browser)
-    a.setShortcut(QKeySequence("Ctrl+C")) # Shortcut for convenience. Added by Didi
+    shortCut = getConfig("Shortcut: simple copy","Ctrl+C")
+    if shortCut:
+        a.setShortcut(QKeySequence(shortCut))
     a.triggered.connect(lambda : onCopyCards(browser))
     browser.form.menuEdit.addSeparator()
     browser.form.menuEdit.addAction(a)
     a = QAction("Full Notes Copy", browser)
-    a.setShortcut(QKeySequence("Ctrl+Alt+C")) # Shortcut for convenience. Added by Didi
+    shortCut = getConfig("Shortcut: full copy","Ctrl+Alt+C")
+    if shortCut:
+        a.setShortcut(QKeySequence(shortCut))
     a.triggered.connect(lambda : onCopyCards(browser,review=True))
     browser.form.menuEdit.addAction(a)
 

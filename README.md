@@ -9,13 +9,15 @@ To copy a note:
 3. Go to "Edit > Copy and set to new" (Ctrl+C) or "Edit > Copy notes,
    keep interval" (Ctrl+Shift+C)
 
-The copy preserve fields, tags, decks. 
+The copy preserve fields, tags, decks.
 
 ## Warning
 There is a potential caveat, which should not occur often nor have
 real consequences. You should note that empty cards are not copied. If
 you don't know what it means, you probably doesn't need to worry about
-this. 
+this.
+## Configuration
+Using the add-on configuration, you can change both shortcut.
 
 ## Links, licence and credits
 
