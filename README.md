@@ -6,8 +6,9 @@ intervals, ease, etc... than the original card.
 To copy a note:
 1. Open the card browser
 2. Select the desired notes (at least one card by note)
-3. Go to "Edit > Copy and set to new" (Ctrl+C) or "Edit > Copy notes,
-   keep interval" (Ctrl+Shift+C)
+3. Go to "Edit > Copy and set to new" or "Edit > Copy notes, keep
+   interval" their shortcut are configurable, by default (Ctrl+C) and
+   (Ctrl+Shift+C).
 
 The copy preserve fields, tags, decks.
 
@@ -17,7 +18,12 @@ real consequences. You should note that empty cards are not copied. If
 you don't know what it means, you probably doesn't need to worry about
 this.
 ## Configuration
-Using the add-on configuration, you can change both shortcut.
+Using the add-on configuration, you can:
+* change both shortcut.
+* decide whether you keep creation time or set it to current time.
+
+## Configuration
+"Preserve creation time": as indicated by the name, if it's true, the card and note's creation time are preserved. Otherwise, it is set to the time of the copy.
 
 ## Links, licence and credits
 

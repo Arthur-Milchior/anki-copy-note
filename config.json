@@ -1,4 +1,5 @@
 {
   "Shortcut: simple copy":"Ctrl+C",
-  "Shortcut: full copy":"Ctrl+Alt+C"
+  "Shortcut: full copy":"Ctrl+Alt+C",
+  "Preserve creation time" : true
 }
