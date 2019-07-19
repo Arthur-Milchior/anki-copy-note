@@ -24,28 +24,26 @@ Recall that an «empty cards» is a card that should be deleted by
 """
 
 from PyQt5.QtCore import *
+from .config import getConfig
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from anki.lang import _
 from anki.hooks import addHook
 from aqt import mw
-from .config import getConfig
 from aqt.utils import tooltip, showWarning
 from anki.utils import intTime
 import anki.notes
-from anki.lang import _
 #import profile
 
-def copyNotes(browser,copy_review):
+def copyNotes(nids):
     """
 
     nids -- id of notes to copy
-    copy_review -- whether to copy easiness,
     """
-    nids = browser.selectedNotes()
     mw.checkpoint("Copy Notes")
     mw.progress.start()
     for nid in nids:
-        copyNote(nid, copy_review)
+        copyNote(nid)
     # Reset collection and main window
     mw.progress.finish()
     mw.col.reset()
@@ -55,27 +53,18 @@ def copyNotes(browser,copy_review):
 
 def setupMenu(browser):
     a = QAction("Note Copy", browser)
-    shortCut = getConfig("Shortcut: simple copy","Ctrl+C")
-    if shortCut:
-        a.setShortcut(QKeySequence(shortCut))
-    a.triggered.connect(lambda : copyNotes(browser, copy_review = False))
+    a.setShortcut(QKeySequence(getConfig("Shortcut: copy","Ctrl+C"))) # Shortcut for convenience. Added by Didi
+    a.triggered.connect(lambda : copyNotes(browser.selectedNotes()))
     browser.form.menuEdit.addSeparator()
     browser.form.menuEdit.addAction(a)
-    print("add full note copy and copy")
-    a = QAction("Full Notes Copy", browser)
-    shortCut = getConfig("Shortcut: full copy","Ctrl+Alt+C")
-    if shortCut:
-        a.setShortcut(QKeySequence(shortCut))
-    a.triggered.connect(lambda : copyNotes(browser,copy_review = True))
-    browser.form.menuEdit.addAction(a)
 
-def copyNote(nid, copy_review):
+def copyNote(nid):
     note = mw.col.getNote(nid)
     cards= note.cards()
     note.id = timestampID(note.col.db, "notes", note.id if getConfig("Preserve creation time", True) else None)
     for card in cards:
         card.id = timestampID(note.col.db, "cards", card.id if getConfig("Preserve creation time", True) else None)
-        if not copy_review:
+        if not getConfig("Preserve ease, due, interval...", True):
             card.type = 0
             card.ivl = 0
             card.factor = 0

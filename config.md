@@ -1,1 +1,2 @@
 "Preserve creation time": as indicated by the name, if it's true, the card and note's creation time are preserved. Otherwise, it is set to the time of the copy.
+"Preserve ease, due, interval...": preserve every informations not related to creation date
