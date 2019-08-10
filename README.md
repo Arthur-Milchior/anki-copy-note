@@ -16,6 +16,12 @@ There is a potential caveat, which should not occur often nor have
 real consequences. You should note that empty cards are not copied. If
 you don't know what it means, you probably doesn't need to worry about
 this.
+
+### Incompatibilites
+This add-on is currently incompatible with:
+* add-on [Show duplicates](https://ankiweb.net/shared/info/865767531)
+
+
 ## Configuration
 Using the add-on configuration, you can:
 * change the shortcut.
