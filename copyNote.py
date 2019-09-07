@@ -24,15 +24,18 @@ Recall that an «empty cards» is a card that should be deleted by
 """
 
 from PyQt5.QtCore import *
-from .config import getConfig
-from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from anki.lang import _
-from anki.hooks import addHook
-from aqt import mw
-from aqt.utils import tooltip, showWarning
-from anki.utils import intTime
+from PyQt5.QtWidgets import *
+
 import anki.notes
+from anki.hooks import addHook
+from anki.lang import _
+from anki.utils import intTime
+from aqt import mw
+from aqt.utils import showWarning, tooltip
+
+from .config import getConfig
+
 #import profile
 
 def copyNotes(nids):
@@ -63,18 +66,22 @@ def copyNote(nid):
     cards= note.cards()
     note.id = timestampID(note.col.db, "notes", note.id if getConfig("Preserve creation time", True) else None)
     for card in cards:
-        card.id = timestampID(note.col.db, "cards", card.id if getConfig("Preserve creation time", True) else None)
-        if not getConfig("Preserve ease, due, interval...", True):
-            card.type = 0
-            card.ivl = 0
-            card.factor = 0
-            card.reps = 0
-            card.lapses = 0
-            card.left = 0
-            card.odue = 0
-        card.nid = note.id
-        card.flush()
+        copyCard(card)
     note.flush()
+
+def copyCard(card):
+    card.id = timestampID(note.col.db, "cards", card.id if getConfig("Preserve creation time", True) else None)
+    if not getConfig("Preserve ease, due, interval...", True):
+        card.type = 0
+        card.ivl = 0
+        card.factor = 0
+        card.reps = 0
+        card.lapses = 0
+        card.left = 0
+        card.odue = 0
+    card.nid = note.id
+    card.flush()
+
 
 addHook("browser.setupMenus", setupMenu)
 
