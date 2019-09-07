@@ -65,11 +65,10 @@ def copyNote(nid):
     note = mw.col.getNote(nid)
     cards= note.cards()
     note.id = timestampID(note.col.db, "notes", note.id if getConfig("Preserve creation time", True) else None)
-    for card in cards:
-        copyCard(card)
+    for card in cards: copyCard(card, note)
     note.flush()
 
-def copyCard(card):
+def copyCard(card, note):
     card.id = timestampID(note.col.db, "cards", card.id if getConfig("Preserve creation time", True) else None)
     if not getConfig("Preserve ease, due, interval...", True):
         card.type = 0
@@ -81,6 +80,14 @@ def copyCard(card):
         card.odue = 0
     card.nid = note.id
     card.flush()
+    if getConfig("Copy log", True):
+        for data in mw.col.db.all("select * from revlog"): copyData(data)
+
+def copyData(data):
+    id, cid, usn, ease, ivl, lastIvl, factor, time, type = data
+    id = timestampID(mw.col.db, "revlog", t=id)
+    cid = card.id
+    mw.col.db.execute("insert into revlog values values (?, ?, ?, ?, ?, ?, ?, ?, ?)", id, cid, usn, ease, ivl, lastIvl, factor, time, type)
 
 
 addHook("browser.setupMenus", setupMenu)
