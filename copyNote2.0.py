@@ -8,13 +8,14 @@
 #This add-ons is heavily based on Kealan Hobelmann's addon 396494452
 
 
+import anki.notes
+from anki.hooks import addHook
+from anki.utils import intTime, timestampID
+from aqt import mw
+from aqt.utils import showWarning, tooltip
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from anki.hooks import addHook
-from aqt import mw
-from aqt.utils import tooltip, showWarning
-from anki.utils import timestampID, intTime
-import anki.notes
+
 #import profile
 
 
