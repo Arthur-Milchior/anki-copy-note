@@ -81,12 +81,13 @@ def copyCard(card, note):
     card.nid = note.id
     card.flush()
     if getConfig("Copy log", True):
-        for data in mw.col.db.all("select * from revlog"): copyData(data)
+        for data in mw.col.db.all("select * from revlog"):
+            copyLog(data, newCid)
 
-def copyData(data):
+def copyLog(data, newCid):
     id, cid, usn, ease, ivl, lastIvl, factor, time, type = data
     id = timestampID(mw.col.db, "revlog", t=id)
-    cid = card.id
+    cid = newCid
     mw.col.db.execute("insert into revlog values values (?, ?, ?, ?, ?, ?, ?, ?, ?)", id, cid, usn, ease, ivl, lastIvl, factor, time, type)
 
 
