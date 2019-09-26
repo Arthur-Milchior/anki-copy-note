@@ -34,7 +34,7 @@ from anki.utils import intTime, guid64
 from aqt import mw
 from aqt.utils import showWarning, tooltip
 
-from .config import getConfig
+from .config import getUserOption
 
 #import profile
 
@@ -56,7 +56,7 @@ def copyNotes(nids):
 
 def setupMenu(browser):
     a = QAction("Note Copy", browser)
-    a.setShortcut(QKeySequence(getConfig("Shortcut: copy","Ctrl+C"))) # Shortcut for convenience. Added by Didi
+    a.setShortcut(QKeySequence(getUserOption("Shortcut: copy","Ctrl+C"))) # Shortcut for convenience. Added by Didi
     a.triggered.connect(lambda : copyNotes(browser.selectedNotes()))
     browser.form.menuEdit.addSeparator()
     browser.form.menuEdit.addAction(a)
@@ -64,14 +64,14 @@ def setupMenu(browser):
 def copyNote(nid):
     note = mw.col.getNote(nid)
     cards= note.cards()
-    note.id = timestampID(note.col.db, "notes", note.id if getConfig("Preserve creation time", True) else None)
+    note.id = timestampID(note.col.db, "notes", note.id if getUserOption("Preserve creation time", True) else None)
     note.guid = guid64()
     for card in cards: copyCard(card, note)
     note.flush()
 
 def copyCard(card, note):
-    card.id = timestampID(note.col.db, "cards", card.id if getConfig("Preserve creation time", True) else None)
-    if not getConfig("Preserve ease, due, interval...", True):
+    card.id = timestampID(note.col.db, "cards", card.id if getUserOption("Preserve creation time", True) else None)
+    if not getUserOption("Preserve ease, due, interval...", True):
         card.type = 0
         card.ivl = 0
         card.factor = 0
@@ -81,7 +81,7 @@ def copyCard(card, note):
         card.odue = 0
     card.nid = note.id
     card.flush()
-    if getConfig("Copy log", True):
+    if getUserOption("Copy log", True):
         for data in mw.col.db.all("select * from revlog"):
             copyLog(data, card.id)
 

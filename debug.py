@@ -1,11 +1,12 @@
-from .config import getConfig
+from .config import getUserOption
 from aqt import mw
 from aqt.utils import askUser
 from anki.hooks import addHook
+from anki.utils import guid64
 
 def check():
-    checkedGui = getConfig("checkedGui", [])
-    if mw.col.id in checkedGui:
+    checkedGui = getUserOption("checkedGui", [])
+    if mw.pm.name in checkedGui:
         return
     lastGuid = None
     accepted = False
@@ -18,6 +19,6 @@ def check():
             mw.col.modSchema(True)
             mw.col.db.execute("update notes set guid = ? where id = ? ", guid64(), nid)
         lastGuid = guid
-    checkedGui.append(mw.col.id)
+    checkedGui.append(mw.pm.name)
 
 addHook("profileLoaded", check)
