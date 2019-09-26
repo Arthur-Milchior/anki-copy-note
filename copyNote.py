@@ -30,7 +30,7 @@ from PyQt5.QtWidgets import *
 import anki.notes
 from anki.hooks import addHook
 from anki.lang import _
-from anki.utils import intTime
+from anki.utils import intTime, guid64
 from aqt import mw
 from aqt.utils import showWarning, tooltip
 
@@ -65,6 +65,7 @@ def copyNote(nid):
     note = mw.col.getNote(nid)
     cards= note.cards()
     note.id = timestampID(note.col.db, "notes", note.id if getConfig("Preserve creation time", True) else None)
+    note.guid = guid64()
     for card in cards: copyCard(card, note)
     note.flush()
 
@@ -82,13 +83,13 @@ def copyCard(card, note):
     card.flush()
     if getConfig("Copy log", True):
         for data in mw.col.db.all("select * from revlog"):
-            copyLog(data, newCid)
+            copyLog(data, card.id)
 
 def copyLog(data, newCid):
     id, cid, usn, ease, ivl, lastIvl, factor, time, type = data
     id = timestampID(mw.col.db, "revlog", t=id)
     cid = newCid
-    mw.col.db.execute("insert into revlog values values (?, ?, ?, ?, ?, ?, ?, ?, ?)", id, cid, usn, ease, ivl, lastIvl, factor, time, type)
+    mw.col.db.execute("insert into revlog values (?, ?, ?, ?, ?, ?, ?, ?, ?)", id, cid, usn, ease, ivl, lastIvl, factor, time, type)
 
 
 addHook("browser.setupMenus", setupMenu)
