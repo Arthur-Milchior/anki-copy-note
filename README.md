@@ -12,10 +12,29 @@ To copy a note:
 The copy preserve fields, tags, decks.
 
 ## Warning
+
+### Bug in previous versio
+Before the 26th of september 2019, there was a bug in this
+add-on. Because of this bug, if you share and import a deck containing
+either:
+* a note and a copy of this note
+* two notes originally copied from the same note
+then importing this deck will bug. Only one of the multiple notes will
+be imported; the other will be detected as copy by anki, even if they
+have quite different content.
+
+Please install add-on
+[2082040683](https://ankiweb.net/shared/info/2082040683), and execute
+it once to correct the effect of this bug. You can then remove this
+other add-on, since the bug will not occur again.
+
+
+### Empty cards
 There is a potential caveat, which should not occur often nor have
 real consequences. You should note that empty cards are not copied. If
 you don't know what it means, you probably doesn't need to worry about
 this.
+
 
 ### Incompatibilites
 This add-on is currently incompatible with:
