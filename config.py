@@ -1,25 +1,68 @@
+import sys
+
 from aqt import mw
+from aqt.utils import showWarning
 
-options = None
-def readIfRequired():
-    global options
-    if options is None:
-        options = mw.addonManager.getConfig(__name__) or dict()
+# to be configured by Dev
+############################
+addonName = "Copy notes"
+version = 2
+def newVersion():
+    pass
+"""A string stating what could occurs with a wrong configuration file"""
+otherwise= ""
 
-def newConf(config):
-    global options
-    options = None
 
-def getConfig(s = None, default = None):
-    """Get the dictionnary of objects. If a name is given, return the
-    object with this name if it exists.
+# end configuration
 
-    reads if required."""
+userOption = None
 
-    readIfRequired()
-    if s is None:
-        return options
+def _getUserOption():
+    global userOption
+    if userOption is None:
+        userOption = mw.addonManager.getConfig(__name__)
+
+def getUserOption(key = None, default = None):
+    _getUserOption()    
+    if key is None:
+        return userOption
+    if key in userOption:
+        return userOption[key]
     else:
-        return options.get(s, default)
+        return default
 
-mw.addonManager.setConfigUpdatedAction(__name__,newConf)
+lastVersion = getUserOption(version)
+if lastVersion < version:
+    newVersion()
+    pass
+if lastVersion>version:
+    t = f"Please update add-on {addonName}. It seems that your configuration file is made for a more recent version of the add-on."
+    if otherwise:
+        t+="\n"+otherwise
+    showWarning(t)
+
+
+
+def writeConfig():
+    mw.addonManager.writeConfig(__name__,userOption)
+
+def update(_):
+    global userOption, fromName
+    userOption = None
+    fromName = None
+
+mw.addonManager.setConfigUpdatedAction(__name__,update)
+
+fromName = None
+def getFromName(name):
+    global fromName
+    if fromName is None:
+        fromName = dict()
+        for dic in getUserOption("columns"):
+            fromName[dic["name"]]=dic
+    return fromName.get(name)
+
+def setUserOption(key, value):
+    _getUserOption()
+    userOption[key] = value
+    writeConfig()
