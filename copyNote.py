@@ -70,6 +70,7 @@ def copyNote(nid):
     note.flush()
 
 def copyCard(card, note):
+    oid = card.id
     card.id = timestampID(note.col.db, "cards", card.id if getUserOption("Preserve creation time", True) else None)
     if not getUserOption("Preserve ease, due, interval...", True):
         card.type = 0
@@ -82,7 +83,7 @@ def copyCard(card, note):
     card.nid = note.id
     card.flush()
     if getUserOption("Copy log", True):
-        for data in mw.col.db.all("select * from revlog"):
+        for data in mw.col.db.all("select * from revlog where id = ?", oid):
             copyLog(data, card.id)
 
 def copyLog(data, newCid):
