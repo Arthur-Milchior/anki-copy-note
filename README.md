@@ -13,7 +13,7 @@ The copy preserve fields, tags, decks.
 
 ## Warning
 
-### Bug in previous versio
+### Bug in previous version
 Before the 26th of september 2019, there was a bug in this
 add-on. Because of this bug, if you share and import a deck containing
 either:
@@ -23,10 +23,22 @@ then importing this deck will bug. Only one of the multiple notes will
 be imported; the other will be detected as copy by anki, even if they
 have quite different content.
 
-Please install add-on
-[2082040683](https://ankiweb.net/shared/info/2082040683), and execute
-it once to correct the effect of this bug. You can then remove this
-other add-on, since the bug will not occur again.
+This add-on do two things to correct this bug.
+### Correcting your collection
+The first time you open a profile with this add-on installed, it'll
+check whether your collection contains the bug. In this case it'll ask
+whether you want to correct it or not. It won't check again next time
+you open it; indeed, this bug should not appear again. (Unless you use
+an old version of this add-on on another computer which is
+synchronized with the same collection. But normally, in this case,
+it'll be corrected when you update this add-on on the other computer).
+
+### Correcting imports with this bug
+Anki will try to detect when this bug exists in a deck you import. In
+this case, it'll correct it and tell you to tell to the decks' author
+that it should update this deck. Since this change the importer, a
+part of anki which should not be touched by an add-on whose purpose is
+only to copy notes, you can deactivate it in the configurations.
 
 
 ### Empty cards

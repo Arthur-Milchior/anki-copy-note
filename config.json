@@ -2,6 +2,6 @@
   "Shortcut: copy":"Ctrl+C",
   "Preserve creation time" : true,
   "Preserve ease, due, interval...": true,
-  "Copy log": true
-
+  "Copy log": true,
+  "correct import": true
 }
