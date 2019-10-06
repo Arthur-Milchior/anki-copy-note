@@ -29,6 +29,7 @@ from PyQt5.QtWidgets import *
 
 import anki.notes
 from anki.hooks import addHook
+from anki.importing.anki2 import Anki2Importer
 from anki.lang import _
 from anki.utils import intTime, guid64
 from aqt import mw
@@ -140,7 +141,7 @@ Arthur@Milchior.fr""")
         return True
 
 if getUserOption("correct import", True):
-    anki.importing.anki2.Anki2Importer._uniquifyNote = _uniquifyNote
+    Anki2Importer._uniquifyNote = _uniquifyNote
         
 def _importNotes(self):
         # build guid -> (id,mod,mid) hash & map of existing note ids
