@@ -121,7 +121,7 @@ def _uniquifyNote(self, note):
         note[MID] = dstMid
         
     if note[GUID] in self._notes:
-        destId, destGuid, destMod, destMid = self._notes[note[GUID]]
+        destId, destMod, destMid = self._notes[note[GUID]]
         if note[NID] == destId: #really a duplicate
             if srcMid != dstMid: # schema changed and don't import
                 self._ignoredGuids[note[GUID]] = True
