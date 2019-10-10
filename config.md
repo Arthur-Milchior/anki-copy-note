@@ -1,3 +1,3 @@
-"Preserve creation time": as indicated by the name, if it's true, the card and note's creation time are preserved. Otherwise, it is set to the time of the copy.
-"Preserve ease, due, interval...": preserve every informations not related to creation date
-"correct import": whether to correct bugs if improted deck created by an old version of this add-on. you should set it to False if it interferes with another add-ons, otherwise, keeping it to True should be all right.
+"Preserve creation time": As indicated by the name, if it's true, the card and note's creation time are preserved. Otherwise, it is set to the time of the copy.
+"Preserve ease, due, interval...": Preserve all information not related to creation date
+"correct import": Whether to correct bugs in imported decks created by an old version of this add-on. You should set it to False if it interferes with other add-ons; otherwise, keeping it set to True should be all right.
