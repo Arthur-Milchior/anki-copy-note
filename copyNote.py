@@ -128,7 +128,7 @@ def _uniquifyNote(self, note):
             return False
         else: #Probably a copy made by buggy version. Change guid to a new one.
             while note[GUID] in self._notes:
-                note[GUID] += 1
+                note[GUID] = guit64()
             if not firstBug:
                 firstBug = True
                 showWarning("""Hi. Sorry to disturb you. 
