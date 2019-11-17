@@ -60,6 +60,15 @@ Using the add-on configuration, you can:
 * decide whether to keep creation time or set it to current time.
 * decide whether to keep interval, due date, number of lapses, etc...
 
+### Relate card
+Add-on [413416269](https://ankiweb.net/shared/info/413416269) allows
+to relate notes. So that cards of related notes are buried as sibling
+during reviews (on computer only). Relation is done using tags of
+notes. You can configure this add-on to automatically relate a note
+and its copy by ensuring that they share a tag. More precisely, if
+they already have a relation tag, then the same one will be used in
+the new note. Otherwise, a new tag will be added to both.
+
 ## Configuration
 "Preserve creation time": as indicated by the name, if it's true, the card and note's creation time is preserved. Otherwise, it is set to the time of the copy.
 

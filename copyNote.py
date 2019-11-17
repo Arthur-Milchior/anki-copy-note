@@ -36,6 +36,7 @@ from aqt import mw
 from aqt.utils import showWarning, tooltip
 
 from .config import getUserOption
+from .utils import createRelationTag, getRelationsFromNote
 
 #import profile
 
@@ -64,7 +65,11 @@ def setupMenu(browser):
 
 def copyNote(nid):
     note = mw.col.getNote(nid)
-    cards= note.cards()
+    cards = note.cards()
+    if getUserOption("relate copies", False):
+        if not getRelationsFromNote(note):
+            note.addTag(createRelationTag())
+            note.flush()
     note.id = timestampID(note.col.db, "notes", note.id if getUserOption("Preserve creation time", True) else None)
     note.guid = guid64()
     for card in cards: copyCard(card, note)
