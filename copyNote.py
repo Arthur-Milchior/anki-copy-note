@@ -118,6 +118,7 @@ MOD = 3
 # determine if note is a duplicate, and adjust mid and/or guid as required
 # returns true if note should be added
 def _uniquifyNote(self, note):
+    global firstBug
     srcMid = note[MID]
     dstMid = self._mid(srcMid)
 
@@ -133,7 +134,7 @@ def _uniquifyNote(self, note):
             return False
         else: #Probably a copy made by buggy version. Change guid to a new one.
             while note[GUID] in self._notes:
-                note[GUID] = guit64()
+                note[GUID] = guid64()
             if not firstBug:
                 firstBug = True
                 showWarning("""Hi. Sorry to disturb you. 
