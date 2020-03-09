@@ -1,6 +1,8 @@
 # As in add-on 413416269
-from .config import getUserOption
 from anki.utils import intTime
+
+from .config import getUserOption
+
 
 def getRelationsFromNote(note):
     relations = set()
@@ -10,6 +12,7 @@ def getRelationsFromNote(note):
                 relations.add(relation)
                 break
     return relations
+
 
 def createRelationTag():
     return f"""{getUserOption("current tag prefix", "relation_")}{intTime(1000)}"""
