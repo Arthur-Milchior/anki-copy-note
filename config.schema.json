@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "",
+  "properties": {
+    "Preserve creation time": {
+      "description":
+      "The card and note's creation time are preserved. Otherwise, it is set to the time of the copy.",
+      "type": "boolean",
+      "default": true
+    },
+    "relate copies": {
+      "description": "Add a tag to relate original note and its copy for Add-on https://ankiweb.net/shared/info/413416269",
+      "type": "boolean",
+      "default": true
+    },
+    "Preserve ease, due, interval...": {
+      "description": "Preserve all information not related to creation date", 
+      "type": "boolean",
+      "default": true
+    },
+    "Copy log": {
+      "description": "Whether to also copy the review log of the selected cards",
+      "type": "boolean",
+      "default": true
+    },
+    "correct import": {
+      "description": "Whether to correct bugs in imported decks created by an old version of this add-on. You should set it to False if it interferes with other add-ons; otherwise, keeping it set to True should be all right.",
+      "type": "boolean",
+      "default": true
+    },
+    "current tag prefix": {
+      "description": "the prefix of tag used to relate note, as in https://ankiweb.net/shared/info/413416269",
+      "type": "string",
+      "default": "relation_"
+    },
+    "tag prefixes": {
+      "description":"if a copied note's tag contain a prefix of this list, no prefix will be added. As in https://ankiweb.net/shared/info/413416269",
+      "type": "array",
+      "items": {
+        "type":"string"
+      },
+      "default":["relation_"]
+    },
+    "Shortcut: copy": {
+      "type": "string",
+      "pattern": "^((([Cc][Tt][Rr][Ll]|[Aa][Ll][Tt]|[Ss][Hh][Ii][Ff][Tt])\\+){0,3}[a-zA-Z0-9])?$",
+      "default": ""
+    }
+  }
+}
