@@ -6,7 +6,7 @@ intervals, ease, etc., from the original card.
 To copy a note:
 1. Open the card browser
 2. Select at least one note.
-3. Go to "Edit > Note Copy" 
+3. Go to "Edit > Note Copy". 
    The keyboard shortcut is configurable;
    the default is Ctrl+C
 
