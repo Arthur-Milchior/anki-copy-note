@@ -6,8 +6,8 @@ intervals, ease, etc., from the original card.
 To copy a note:
 1. Open the card browser
 2. Select at least one note.
-3. Go to "Edit > Copy and set to new" 
-   The shortcut is configurable;
+3. Go to "Edit > Note Copy" 
+   The keyboard shortcut is configurable;
    the default is Ctrl+C
 
 The copy preserves fields, tags, and decks.
@@ -69,8 +69,15 @@ and its copy by ensuring that they share a tag. More precisely, if
 they already have a relation tag, then the same one will be used in
 the new note. Otherwise, a new tag will be added to both.
 
-## Configuration
-"Preserve creation time": as indicated by the name, if it's true, the card and note's creation time is preserved. Otherwise, it is set to the time of the copy.
+### All Configuration Options
+* **Preserve creation time** *(Default = True)*: The card and note's creation time are preserved. Otherwise, it is set to the time of the copy.
+* **relate copies** *(Default = True)*: Add a tag to relate original note and its copy for Add-on https://ankiweb.net/shared/info/413416269
+* **Preserve ease, due, interval...** *(Default = True)*: Preserve all information not related to creation date
+* **Copy log** *(Default = True)*: Whether to also copy the review log of the selected cards
+* **correct import** *(Default = True)*: Whether to correct bugs in imported decks created by an old version of this add-on. You should set it to False if it interferes with other add-ons; otherwise, keeping it set to True should be all right.
+* **current tag prefix** *(Default = relation_)*: the prefix of tag used to relate note, as in https://ankiweb.net/shared/info/413416269
+* **tag prefixes** *(Default = ['relation_'])*: if a copied note's tag contain a prefix of this list, no prefix will be added. As in https://ankiweb.net/shared/info/413416269
+* **Shortcut: copy**: 
 
 ## Links, licence and credits
 
