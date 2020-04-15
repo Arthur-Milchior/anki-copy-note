@@ -1,3 +1,7 @@
-Allow to copy notes selected in the browser. Either as new note, or keeping every parameters.
+Allows you to copy notes selected in the browser. This add-on can be configured to keep all the original note's parameters or not.
 
-For more information, please go to https://github.com/Arthur-Milchior/anki-copy-note
+Edit 17 November 2019: Allow this add-on to interact with add-on [Bury related notes](https://ankiweb.net/shared/info/413416269).
+
+Edit 8 May 2019: Add an option for keeping the creation date.
+
+For more information, please go to [the GitHub repo](https://github.com/Arthur-Milchior/anki-copy-note).
