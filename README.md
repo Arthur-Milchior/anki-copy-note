@@ -6,13 +6,13 @@ intervals, ease, etc., from the original card.
 To copy a note:
 1. Open the card browser
 2. Select at least one note.
-3. Go to "Edit > Note Copy". 
+3. Go to `Edit > Note Copy`. 
    The keyboard shortcut is configurable;
-   the default is Ctrl+C
+   the default is `Ctrl+C`.
 
 The copy preserves fields, tags, and decks.
 
-## Warning
+## Warnings
 
 ### Bug in previous version
 Before the 26th of September 2019, there was a bug in this
@@ -25,16 +25,16 @@ be imported; the other will be detected as copy by anki, even if they
 have quite different content.
 
 This add-on does two things to correct this bug.
-### Correcting your collection
+##### Correcting your collection
 The first time you open a profile with this add-on installed, it'll
 check whether your collection contains the bug. In this case it'll ask
-whether you want to correct it or not. It won't check again next time
+whether you want to correct it or not. It won't check again the next time
 you open it; indeed, this bug should not appear again. (Unless you use
 an old version of this add-on on another computer which is
 synchronized with the same collection. But normally, in this case,
 it'll be corrected when you update this add-on on the other computer).
 
-### Correcting imports with this bug
+##### Correcting imports with this bug
 Anki will try to detect when this bug exists in a deck you import. In
 this case, it'll correct it and tell you to tell to the deck's author
 to update this deck. Since this changes the importer, a
@@ -45,8 +45,8 @@ only to copy notes, you can deactivate it in the configuration.
 ### Empty cards
 There is a potential caveat, which should not occur often nor have
 real consequences. You should note that empty cards are not copied. If
-you don't know what it means, you probably doesn't need to worry about
-this.
+you don't know what this means, you probably don't need to worry about
+it.
 
 
 ### Incompatibilites
@@ -57,27 +57,27 @@ This add-on is currently incompatible with:
 ## Configuration
 Using the add-on configuration, you can:
 * change the shortcut.
-* decide whether to keep creation time or set it to current time.
+* decide whether to keep the original creation time or set it to the current time.
 * decide whether to keep interval, due date, number of lapses, etc...
 
 ### Relate card
-Add-on [413416269](https://ankiweb.net/shared/info/413416269) allows
-to relate notes. So that cards of related notes are buried as sibling
-during reviews (on computer only). Relation is done using tags of
-notes. You can configure this add-on to automatically relate a note
+Add-on [413416269](https://ankiweb.net/shared/info/413416269) allows the user
+to relate notes, so that cards of related notes are buried as siblings
+during reviews (only on Anki desktop). Relations are created using tags.
+You can configure this add-on to automatically relate a note
 and its copy by ensuring that they share a tag. More precisely, if
 they already have a relation tag, then the same one will be used in
-the new note. Otherwise, a new tag will be added to both.
+the new copied note. Otherwise, a new tag will be added to both.
 
 ### All Configuration Options
-* **Preserve creation time** *(Default = True)*: The card and note's creation time are preserved. Otherwise, it is set to the time of the copy.
-* **relate copies** *(Default = True)*: Add a tag to relate original note and its copy for Add-on https://ankiweb.net/shared/info/413416269
-* **Preserve ease, due, interval...** *(Default = True)*: Preserve all information not related to creation date
 * **Copy log** *(Default = True)*: Whether to also copy the review log of the selected cards
+* **Preserve creation time** *(Default = True)*: The original card and note's creation time are preserved. Otherwise, it is set to the time of the copy.
+* **Preserve ease, due, interval...** *(Default = True)*: Preserve all information not related to creation date
+* **Shortcut: copy** *(Default = `Ctrl+C`)*: set a custom keyboard shortcut
 * **correct import** *(Default = True)*: Whether to correct bugs in imported decks created by an old version of this add-on. You should set it to False if it interferes with other add-ons; otherwise, keeping it set to True should be all right.
-* **current tag prefix** *(Default = relation_)*: the prefix of tag used to relate note, as in https://ankiweb.net/shared/info/413416269
-* **tag prefixes** *(Default = ['relation_'])*: if a copied note's tag contain a prefix of this list, no prefix will be added. As in https://ankiweb.net/shared/info/413416269
-* **Shortcut: copy**: 
+* **current tag prefix** *(Default = relation_)*: the prefix of the tag used to relate notes, as in [Bury related notes add-on](https://ankiweb.net/shared/info/413416269)
+* **relate copies** *(Default = True)*: Add a tag to relate the original note and its copy for the [Bury related notes add-on](https://ankiweb.net/shared/info/413416269)
+* **tag prefixes** *(Default = ['relation_'])*: if a copied note's tag contain a prefix in this list, no prefix will be added. As in the [Bury related notes add-on](https://ankiweb.net/shared/info/413416269)
 
 ## Links, licence and credits
 
