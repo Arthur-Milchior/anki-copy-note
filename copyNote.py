@@ -84,8 +84,9 @@ def copyNote(nid):
 
 def copyCard(card, note):
     oid = card.id
-    card.id = timestampID(note.col.db, "cards", card.id if getUserOption(
-        "Preserve creation time", True) else None)
+    # Setting id to 0 is Card is seen as new; which lead to a different process in backend
+    card.id = 0
+    new_cid = timestampID(note.col.db, "cards", card.id)
     if not getUserOption("Preserve ease, due, interval...", True):
         card.type = 0
         card.ivl = 0
@@ -96,6 +97,10 @@ def copyCard(card, note):
         card.odue = 0
     card.nid = note.id
     card.flush()
+    if getUserOption(
+            "Preserve creation time", True):
+        mw.col.db.execute("update Cards set id = ? where id = ?", new_cid, card.id)
+        card.id = new_cid
     if getUserOption("Copy log", True):
         for data in mw.col.db.all("select * from revlog where id = ?", oid):
             copyLog(data, card.id)
