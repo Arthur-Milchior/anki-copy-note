@@ -50,6 +50,6 @@
     "tag for copies": {
       "type": "string",
       "default": "copy"
-    },
+    }
   }
 }
