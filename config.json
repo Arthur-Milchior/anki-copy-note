@@ -6,5 +6,6 @@
   "correct import": true,
   "current tag prefix": "relation_",
   "tag prefixes": ["relation_"],
-  "relate copies": false
+  "relate copies": false,
+  "tag for copies": "Copy"
 }

@@ -79,6 +79,7 @@ def copyNote(nid):
     note.guid = guid64()
     for card in cards:
         copyCard(card, note)
+    note.addTag(getUserOption("tag for copies"))
     note.flush()
 
 

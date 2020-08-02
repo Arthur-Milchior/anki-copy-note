@@ -6,3 +6,4 @@
 * "current tag prefix": the prefix of tag used to relate notes, as in the [Bury related notes add-on](https://ankiweb.net/shared/info/413416269)
 * "relate copies": Add a tag to relate the original note and its copy for the [Bury related notes add-on](https://ankiweb.net/shared/info/413416269)
 * "tag prefixes": if a copied note's tag contain a prefix of this list, no prefix will be added. As in the [Bury related notes add-on](https://ankiweb.net/shared/info/413416269)
+* "tag for copies": A tag to add to every note which is a copy. This allows to differentiate it from the original one. Leave empty to add no tag.
