@@ -73,14 +73,16 @@ def copyNote(nid):
     if getUserOption("relate copies", False):
         if not getRelationsFromNote(note):
             note.addTag(createRelationTag())
-            note.flush()
+            note.id = 0
+            mw.col.addNote(note)
     note.id = timestampID(note.col.db, "notes", note.id if getUserOption(
         "Preserve creation time", True) else None)
     note.guid = guid64()
     for card in cards:
         copyCard(card, note)
     note.addTag(getUserOption("tag for copies"))
-    note.flush()
+    note.id = 0
+    mw.col.addNote(note)
 
 
 def copyCard(card, note):
