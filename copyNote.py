@@ -31,12 +31,14 @@ import anki.notes
 from anki.hooks import addHook
 from anki.importing.anki2 import Anki2Importer
 from anki.lang import _
-from anki.utils import guid64, intTime
+from anki.utils import guid64
 from aqt import mw
 from aqt.utils import showWarning, tooltip
 
 from .config import getUserOption
 from .utils import createRelationTag, getRelationsFromNote
+from .new_note_id import add_note_with_id
+from .time import timestampID
 
 #import profile
 
@@ -70,24 +72,32 @@ def setupMenu(browser):
 def copyNote(nid):
     note = mw.col.getNote(nid)
     cards = note.cards()
+    oid = note.id
+
+    note_copy = add_note_with_id()
+    note.id = note_copy.id
+    note.guid = note_copy.guid
+
+    new_nid = timestampID(note.col.db, "notes", nid)
     if getUserOption("relate copies", False):
         if not getRelationsFromNote(note):
             note.addTag(createRelationTag())
             note.flush()
-    note.id = timestampID(note.col.db, "notes", note.id if getUserOption(
-        "Preserve creation time", True) else None)
-    note.guid = guid64()
     for card in cards:
         copyCard(card, note)
     note.addTag(getUserOption("tag for copies"))
     note.flush()
+    if getUserOption(
+            "Preserve creation time", True):
+        mw.col.db.execute("update notes set id = ? where id = ?", new_nid, note.id)
+        mw.col.db.execute("update cards set nid = ? where nid = ?", new_nid, note.id)
 
 
 def copyCard(card, note):
     oid = card.id
     # Setting id to 0 is Card is seen as new; which lead to a different process in backend
     card.id = 0
-    new_cid = timestampID(note.col.db, "cards", card.id)
+    new_cid = timestampID(note.col.db, "cards", oid)
     if not getUserOption("Preserve ease, due, interval...", True):
         card.type = 0
         card.ivl = 0
@@ -118,14 +128,6 @@ def copyLog(data, newCid):
 addHook("browser.setupMenus", setupMenu)
 
 
-def timestampID(db, table, t=None):
-    "Return a non-conflicting timestamp for table."
-    # be careful not to create multiple objects without flushing them, or they
-    # may share an ID.
-    t = t or intTime(1000)
-    while db.scalar("select id from %s where id = ?" % table, t):
-        t += 1
-    return t
 
 
 firstBug = False
