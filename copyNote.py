@@ -86,6 +86,7 @@ def copyNote(nid):
     for card in cards:
         copyCard(card, note)
     note.addTag(getUserOption("tag for copies"))
+    emptyIgnoredFields(note)
     note.flush()
     if getUserOption(
             "Preserve creation time", True):
@@ -124,6 +125,14 @@ def copyLog(data, newCid):
     mw.col.db.execute("insert into revlog values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
                       id, cid, usn, ease, ivl, lastIvl, factor, time, type)
 
+def emptyIgnoredFields(note):
+    if (getUserOption("leave all fields empty in copy", False)):
+        for key in note.keys():
+            note[key] = "";
+    fieldsToEmpty = getUserOption("fields to leave empty in copy", [])
+    for field in fieldsToEmpty:
+        if field in note:
+            note[field] = ""
 
 addHook("browser.setupMenus", setupMenu)
 

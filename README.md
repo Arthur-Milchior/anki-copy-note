@@ -79,6 +79,8 @@ the new copied note. Otherwise, a new tag will be added to both.
 * **relate copies** *(Default = True)*: Add a tag to relate the original note and its copy for the [Bury related notes add-on](https://ankiweb.net/shared/info/413416269)
 * **tag prefixes** *(Default = ['relation_'])*: if a copied note's tag contain a prefix in this list, no prefix will be added. As in the [Bury related notes add-on](https://ankiweb.net/shared/info/413416269)
 * **tag for copies** *(Default = 'copy')*: A tag added to the new notes, copied from another note.
+* **fields to leave empty in copy** *(Default = [])*: Specific fields to leave empty in the copied note.
+* **leave all fields empty in copy** *(Default = False)*: Leave all fields empty in the copied note.
 
 ## Links, licence and credits
 

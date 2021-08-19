@@ -7,5 +7,7 @@
   "current tag prefix": "relation_",
   "tag prefixes": ["relation_"],
   "relate copies": false,
-  "tag for copies": "Copy"
+  "tag for copies": "Copy",
+  "fields to leave empty in copy": [],
+  "leave all fields empty in copy": false
 }
