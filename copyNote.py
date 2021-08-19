@@ -98,7 +98,8 @@ def copyCard(card, note):
     # Setting id to 0 is Card is seen as new; which lead to a different process in backend
     card.id = 0
     new_cid = timestampID(note.col.db, "cards", oid)
-    if not getUserOption("Preserve ease, due, interval...", True):
+    shouldNotPreserveScheduling = not getUserOption("Preserve ease, due, interval...", True)
+    if shouldNotPreserveScheduling:
         card.type = 0
         card.ivl = 0
         card.factor = 0
@@ -108,6 +109,8 @@ def copyCard(card, note):
         card.odue = 0
     card.nid = note.id
     card.flush()
+    if shouldNotPreserveScheduling:
+        mw.col.sched.schedule_cards_as_new([card.id])
     if getUserOption(
             "Preserve creation time", True):
         mw.col.db.execute("update Cards set id = ? where id = ?", new_cid, card.id)
