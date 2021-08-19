@@ -74,7 +74,7 @@ def copyNote(nid):
     cards = note.cards()
     oid = note.id
 
-    note_copy = add_note_with_id()
+    note_copy, copy_due = add_note_with_id()
     note.id = note_copy.id
     note.guid = note_copy.guid
 
@@ -84,7 +84,7 @@ def copyNote(nid):
             note.addTag(createRelationTag())
             note.flush()
     for card in cards:
-        copyCard(card, note)
+        copyCard(card, note, copy_due)
     note.addTag(getUserOption("tag for copies"))
     note.flush()
     if getUserOption(
@@ -93,7 +93,7 @@ def copyNote(nid):
         mw.col.db.execute("update cards set nid = ? where nid = ?", new_nid, note.id)
 
 
-def copyCard(card, note):
+def copyCard(card, note, copy_due):
     oid = card.id
     # Setting id to 0 is Card is seen as new; which lead to a different process in backend
     card.id = 0
@@ -106,6 +106,7 @@ def copyCard(card, note):
         card.lapses = 0
         card.left = 0
         card.odue = 0
+        card.due = copy_due
     card.nid = note.id
     card.flush()
     if getUserOption(
