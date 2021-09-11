@@ -113,7 +113,7 @@ def copyCard(card, note):
         mw.col.db.execute("update Cards set id = ? where id = ?", new_cid, card.id)
         card.id = new_cid
     if getUserOption("Copy log", True):
-        for data in mw.col.db.all("select * from revlog where id = ?", oid):
+        for data in mw.col.db.all("select * from revlog where cid = ?", oid):
             copyLog(data, card.id)
 
 
