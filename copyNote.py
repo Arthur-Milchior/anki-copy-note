@@ -92,6 +92,7 @@ def copyNote(nid):
     
     
     note.addTag(getUserOption("tag for copies"))
+    note.usn = mw.col.usn()
     note.flush()
 
 
@@ -109,6 +110,7 @@ def copyCard(old_card, new_card):
         old_card.left = 0
         old_card.odue = 0
     old_card.nid = new_card.nid
+    old_card.usn = mw.col.usn()
     old_card.flush()
     # I don't care about the card creation time
     if getUserOption("Copy log", True):

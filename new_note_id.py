@@ -16,6 +16,7 @@ def add_note_with_id(id: Optional[int]= None):
     """, new_id, note.id)
     for c in cards_for_new_note:
         c.nid = new_id
+        c.usn = mw.col.usn()
         c.flush()
     note.id = new_id
     return note, cards_for_new_note
