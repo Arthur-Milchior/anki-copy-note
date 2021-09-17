@@ -65,8 +65,8 @@ def setupMenu(browser):
     # Shortcut for convenience. Added by Didi
     a.setShortcut(QKeySequence(getUserOption("Shortcut: copy", "Ctrl+C")))
     a.triggered.connect(lambda: copyNotes(browser))
-    browser.form.menuEdit.addSeparator()
-    browser.form.menuEdit.addAction(a)
+    browser.form.menu_Notes.addSeparator()
+    browser.form.menu_Notes.addAction(a)
 
 
 def copyNote(nid):
