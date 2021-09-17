@@ -75,7 +75,7 @@ def copyNote(nid):
     old_cards_sorted = sorted(old_cards, key=lambda x: x.ord) # , reverse=True)
     oid = note.id
 
-    new_note, new_cards = add_note_with_id(nid if getUserOption("Preserve creation time", True) else None)
+    new_note, new_cards = add_note_with_id(note, nid if getUserOption("Preserve creation time", True) else None)
     new_cards_sorted = sorted(new_cards, key=lambda x: x.ord) # , reverse=True)
     
     note.id = new_note.id
