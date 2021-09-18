@@ -81,15 +81,12 @@ def copyNote(nid):
     note.id = new_note.id
     note.guid = new_note.guid
 
-
     if getUserOption("relate copies", False):
         if not getRelationsFromNote(note):
             note.addTag(createRelationTag())
             note.flush()
-        
     for old, new in zip(old_cards_sorted, new_cards_sorted):
         copyCard(old, new)
-    
     
     note.addTag(getUserOption("tag for copies"))
     note.usn = mw.col.usn()
