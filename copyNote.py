@@ -120,6 +120,7 @@ def copyCard(old_card, new_card):
 
 def copyLog(data, newCid):
     id, cid, usn, ease, ivl, lastIvl, factor, time, type = data
+    usn = mw.col.usn()
     id = timestampID(mw.col.db, "revlog", t=id)
     cid = newCid
     mw.col.db.execute("insert into revlog values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
