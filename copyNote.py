@@ -43,11 +43,11 @@ from .time import timestampID
 #import profile
 
 
-def copyNotes(nids):
+def copyNotes(browser):
     """
-
     nids -- id of notes to copy
     """
+    nids = browser.selectedNotes()
     mw.checkpoint("Copy Notes")
     mw.progress.start()
     for nid in nids:
@@ -56,66 +56,67 @@ def copyNotes(nids):
     mw.progress.finish()
     mw.col.reset()
     mw.reset()
-
-    tooltip(_("""Cards copied."""))
+    browser.onSearchActivated()
+    tooltip("""Cards copied.""")
 
 
 def setupMenu(browser):
     a = QAction("Note Copy", browser)
     # Shortcut for convenience. Added by Didi
     a.setShortcut(QKeySequence(getUserOption("Shortcut: copy", "Ctrl+C")))
-    a.triggered.connect(lambda: copyNotes(browser.selectedNotes()))
-    browser.form.menuEdit.addSeparator()
-    browser.form.menuEdit.addAction(a)
+    a.triggered.connect(lambda: copyNotes(browser))
+    browser.form.menu_Notes.addSeparator()
+    browser.form.menu_Notes.addAction(a)
 
 
 def copyNote(nid):
     note = mw.col.getNote(nid)
-    cards = note.cards()
+    old_cards = note.cards()
+    old_cards_sorted = sorted(old_cards, key=lambda x: x.ord) # , reverse=True)
     oid = note.id
 
-    note_copy = add_note_with_id()
-    note.id = note_copy.id
-    note.guid = note_copy.guid
+    new_note, new_cards = add_note_with_id(note, nid if getUserOption("Preserve creation time", True) else None)
+    new_cards_sorted = sorted(new_cards, key=lambda x: x.ord) # , reverse=True)
+    
+    note.id = new_note.id
+    note.guid = new_note.guid
 
-    new_nid = timestampID(note.col.db, "notes", nid)
+
     if getUserOption("relate copies", False):
         if not getRelationsFromNote(note):
             note.addTag(createRelationTag())
             note.flush()
-    for card in cards:
-        copyCard(card, note)
+        
+    for old, new in zip(old_cards_sorted, new_cards_sorted):
+        copyCard(old, new)
+    
+    
     note.addTag(getUserOption("tag for copies"))
+    note.usn = mw.col.usn()
     note.flush()
-    if getUserOption(
-            "Preserve creation time", True):
-        mw.col.db.execute("update notes set id = ? where id = ?", new_nid, note.id)
-        mw.col.db.execute("update cards set nid = ? where nid = ?", new_nid, note.id)
 
 
-def copyCard(card, note):
-    oid = card.id
+def copyCard(old_card, new_card):
+    oid = old_card.id
     # Setting id to 0 is Card is seen as new; which lead to a different process in backend
-    card.id = 0
-    new_cid = timestampID(note.col.db, "cards", oid)
+    old_card.id = new_card.id
+    # new_cid = timestampID(note.col.db, "cards", oid)
     if not getUserOption("Preserve ease, due, interval...", True):
-        card.type = 0
-        card.ivl = 0
-        card.factor = 0
-        card.reps = 0
-        card.lapses = 0
-        card.left = 0
-        card.odue = 0
-        card.queue = 0
-    card.nid = note.id
-    card.flush()
-    if getUserOption(
-            "Preserve creation time", True):
-        mw.col.db.execute("update Cards set id = ? where id = ?", new_cid, card.id)
-        card.id = new_cid
+        old_card.type = 0
+        old_card.ivl = 0
+        old_card.factor = 0
+        old_card.reps = 0
+        old_card.lapses = 0
+        old_card.left = 0
+        old_card.odue = 0
+        old_card.queue = 0
+    old_card.nid = new_card.nid
+    old_card.usn = mw.col.usn()
+    old_card.flush()
+    # I don't care about the card creation time
     if getUserOption("Copy log", True):
-        for data in mw.col.db.all("select * from revlog where id = ?", oid):
-            copyLog(data, card.id)
+        for data in mw.col.db.all("select * from revlog where cid = ?", oid):
+            copyLog(data, old_card.id)
 
 
 def copyLog(data, newCid):
