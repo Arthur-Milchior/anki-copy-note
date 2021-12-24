@@ -81,15 +81,12 @@ def copyNote(nid):
     note.id = new_note.id
     note.guid = new_note.guid
 
-
     if getUserOption("relate copies", False):
         if not getRelationsFromNote(note):
             note.addTag(createRelationTag())
             note.flush()
-        
     for old, new in zip(old_cards_sorted, new_cards_sorted):
         copyCard(old, new)
-    
     
     note.addTag(getUserOption("tag for copies"))
     note.usn = mw.col.usn()
@@ -120,6 +117,7 @@ def copyCard(old_card, new_card):
 
 def copyLog(data, newCid):
     id, cid, usn, ease, ivl, lastIvl, factor, time, type = data
+    usn = mw.col.usn()
     id = timestampID(mw.col.db, "revlog", t=id)
     cid = newCid
     mw.col.db.execute("insert into revlog values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
