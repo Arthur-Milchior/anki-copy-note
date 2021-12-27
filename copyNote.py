@@ -106,6 +106,7 @@ def copyCard(old_card, new_card):
         old_card.lapses = 0
         old_card.left = 0
         old_card.odue = 0
+        old_card.queue = 0
     old_card.nid = new_card.nid
     old_card.usn = mw.col.usn()
     old_card.flush()
